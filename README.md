@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Contributing
 
@@ -29,3 +30,7 @@ Privacy information can be found at https://privacy.microsoft.com/en-us/
 
 Microsoft and any contributors reserve all other rights, whether under their respective copyrights, patents,
 or trademarks, whether by implication, estoppel or otherwise.
+=======
+# Simple Java Project
+This is a demo project that you can use with [Buddy Continuous Deployment](https://buddy.works).
+>>>>>>> 7666c3139fe0d1f21ab32ad95318bfcf7614ccd3
