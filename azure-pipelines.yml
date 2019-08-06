@@ -1,0 +1,48 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- task: DockerCompose@0
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'BalajiARM'
+    azureContainerRegistry: '{"loginServer":"mydoccon01.azurecr.io", "id" : "/subscriptions/12717e0e-0928-4a5d-8541-96a40739862f/resourceGroups/reskube/providers/Microsoft.ContainerRegistry/registries/mydoccon01"}'
+    dockerComposeFile: '**/docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'buildandPush'
+
+
+
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(tag)
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'manifests'
+    targetPath: 'manifests'
